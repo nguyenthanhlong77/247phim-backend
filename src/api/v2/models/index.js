@@ -5,5 +5,5 @@ const Genre = require("./Genre.model");
 const Country = require("./Country.model");
 const Comment = require("./Comment.model");
 const Episode = require("./Episode.model");
-
-module.exports = { User, Movie, Slide, Genre, Country, Comment, Episode };
+const News = require("./News.model");
+module.exports = { User, Movie, Slide, Genre, Country, Comment, Episode, News };
