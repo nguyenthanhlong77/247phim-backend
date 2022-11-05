@@ -1,90 +1,68 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MovieSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  other_name: {
-    type: String,
-    required: true,
-  },
-  name_URL: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  views: {
-    type: Number,
-    default: 0,
-  },
-  director: {
-    type: String,
-    default: "Đang cập nhật",
-  },
-  country: {
-    type: mongoose.Types.ObjectId,
-    ref: "countries",
-  },
-  type_movie: {
-    type: String,
-    enum: ["phimle", "phimbo"],
-  },
-  year: {
-    type: String,
-  },
-  duration: Number,
-  description: String,
-  casts: {
-    type: String,
-    default: "Đang cập nhật",
-  },
-  genres: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "genres",
+const MovieSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
     },
-  ],
-  language: String,
-  episodes: [
-    {
-      name: String,
-      URL_episode: String,
+    other_name: {
+      type: String,
+      required: true,
     },
-  ],
-  comments: [
-    {
-      body: String,
-      user: {
-        type: mongoose.Types.ObjectId,
-        ref: "users",
-      },
-      create_at: {
-        type: Date,
-        default: Date.now,
-      },
+    name_URL: {
+      type: String,
+      required: true,
+      lowercase: true,
+      unique: true,
     },
-  ],
-  rate: {
-    amount: {
+    likes: {
       type: Number,
       default: 0,
     },
-    total: {
+    views: {
       type: Number,
       default: 0,
     },
+    director: {
+      type: String,
+      default: "Đang cập nhật",
+    },
+    country: {
+      type: String,
+    },
+    type_movie: {
+      type: String,
+      enum: ["phimle", "phimbo"],
+    },
+    year: {
+      type: String,
+    },
+    duration: Number,
+    description: String,
+    casts: {
+      type: String,
+      default: "Đang cập nhật",
+    },
+    genres: [String],
+    language: String,
+    episodes: [String],
+    comments: [String],
+    rate: {
+      amount: {
+        type: Number,
+        default: 0,
+      },
+      total: {
+        type: Number,
+        default: 0,
+      },
+    },
+    URL_image: String,
   },
-  URL_image: String,
-  create_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("movies", MovieSchema);

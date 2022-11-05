@@ -56,6 +56,7 @@ const signAccessToken = async (accessToken) => {
 const authPage = (permission) => {
   return (req, res, next) => {
     const role = req.payload.role;
+    console.log(role);
     if (!permission.includes(role)) {
       return res.status(401).json({
         success: false,

@@ -9,6 +9,7 @@ const {
   getAllGenreTest,
   patchAddNewView,
   getMovieByURL,
+  updateRating,
 } = require("../controllers/Public.controller");
 
 // @Router GET /api/movies/:movieID
@@ -51,9 +52,14 @@ route.get("/countries", getAllCountry);
 // @access public
 route.get("/genres/test", getAllGenreTest);
 
-// @Router PATCH /api//movies/:movieID/newView
+// @Router PATCH /api/movies/:movieID/newView
 // @desc add new view
 // @access public
-route.patch("/movies/:movieID/newView", patchAddNewView);
+route.patch("/movies/:movieID/new-view", patchAddNewView);
+
+// @Router PATCH /api/movies/:movieID/new-rate
+// @desc add new view
+// @access public
+route.patch("/movies/:movieID/new-rate", updateRating);
 
 module.exports = route;

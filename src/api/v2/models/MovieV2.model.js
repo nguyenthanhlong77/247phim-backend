@@ -15,6 +15,7 @@ const MovieSchema = new Schema(
     name_URL: {
       type: String,
       required: true,
+      unique: true,
     },
     likes: {
       type: Number,

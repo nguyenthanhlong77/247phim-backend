@@ -19,9 +19,11 @@ const registerController = async (req, res) => {
     // Check for existing user
     const user = await User.findOne({ username: username });
     if (user)
-      return res
-        .status(200)
-        .json({ success: false, messeage: "Username already taken" });
+      return res.status(200).json({
+        success: false,
+        messeage: "Username already taken",
+        user: user,
+      });
     // Check for existing email
     const user2 = await User.findOne({ email });
     if (user2)

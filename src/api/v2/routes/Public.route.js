@@ -11,6 +11,14 @@ const {
   getMovieByURL,
 } = require("../controllers/Public.controller");
 
+// Hello world!
+route.get("/", (req, res) =>
+  res.json({
+    success: true,
+    message: "Hello world!!!",
+  })
+);
+
 // @Router GET /api/movies/:movieID
 // @desc Get  movies by id
 // @access public
