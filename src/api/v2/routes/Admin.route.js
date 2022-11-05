@@ -2,41 +2,68 @@ const express = require("express");
 const route = express.Router();
 
 const {
-  getAllMovies,
+  // users
   getAllUsers,
-  getALlSlides,
-  getAllGenre,
-  getAllCountry,
-  createNewEpisode,
+  deleteUser,
+  disableUser,
+  activeUser,
+  patchRemovedUser,
+
+  // movies
+  getAllMovies,
   createNewMovie,
+  deleteMovie,
+  updateMovie,
+
+  // episodes
+  createNewEpisode,
+  createEpisode,
+  updateEpisode,
+  getAllEpisodes,
+  addNewSource,
+
+  // comments
+
+  // slides
+  getALlSlides,
   createNewSlide,
+
+  getAllCountry,
+  getAllGenre,
   createNewGenre,
   createNewCountry,
-  deleteMovie,
-  deleteUser,
-  updateMovie,
-  patchLockedUser,
-  patchRemovedUser,
+  deleteComment,
 } = require("../controllers/Admin.controler");
 
 const { authPage, verifyAccessToken } = require("../middlewares/auth");
 
-////////////////////////////////////////////////////////////
-// user routes
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// USERS
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // @Router GET /api/admin/users
 // @dect Get all users
 // @access private
 route.get("/users", verifyAccessToken, authPage(["admin"]), getAllUsers);
 
-// @Router Patch /api/admin/users/block/:userID
+// @Router Patch /api/admin/users/:userID/disable
 // @dect Block a user
 // @access private
 route.patch(
-  "/users/locked/:userID",
+  "/users/:userID/diable",
   verifyAccessToken,
   authPage(["admin"]),
-  patchLockedUser
+  disableUser
+);
+
+// @Router Patch /api/admin/users/:userID/active
+// @dect Block a user
+// @access private
+route.patch(
+  "/users/:userID/active",
+  verifyAccessToken,
+  authPage(["admin"]),
+  activeUser
 );
 
 // @Router Patch /api/admin/users/remove/:userID
@@ -49,8 +76,19 @@ route.patch(
   patchRemovedUser
 );
 
-////////////////////////////////////////////////////////////
-// movie routes
+// @Router DELETE /api/admin/users/:userID
+// @desc Delete a user
+// @access private
+route.post(
+  "/users/:userID/delete",
+  verifyAccessToken,
+  authPage(["admin"]),
+  deleteUser
+);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MOVIES
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // @Router GET /api/admin/movies
 // @desc Create new movie
@@ -72,16 +110,6 @@ route.post(
   deleteMovie
 );
 
-// @Router DELETE /api/admin/users/:userID
-// @desc Delete a user
-// @access private
-route.post(
-  "/users/:userID/delete",
-  verifyAccessToken,
-  authPage(["admin"]),
-  deleteUser
-);
-
 // @Router PATCH /api/admin/movies/:movieID
 // @desc Update a movie
 // @access private
@@ -91,6 +119,17 @@ route.patch(
   authPage(["admin"]),
   updateMovie
 );
+
+// @Router GET /api/admin/movies
+// @desc Get all slide
+// @access private
+route.get("/movies", verifyAccessToken, authPage(["admin"]), getAllMovies);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EPISODES
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+route.get("/episodes", getAllEpisodes);
 
 // @Router PATCH /api/admin/movies/:movieID/episodes/create
 // @desc Update a movie - add new episode
@@ -102,13 +141,37 @@ route.patch(
   createNewEpisode
 );
 
-// @Router GET /api/admin/movies
-// @desc Get all slide
+// @Router POST /api/admin/episodes/create
+// @desc Create new episode
 // @access private
-route.get("/movies", verifyAccessToken, authPage(["admin"]), getAllMovies);
+route.post(
+  "/episodes/create",
+  verifyAccessToken,
+  authPage(["admin"]),
+  createEpisode
+);
+// @Router PATCH /api/admin/episodes/:episode/update
+// @desc Update episode
+// @access private
+route.patch(
+  "/episodes/:episode/update",
+  verifyAccessToken,
+  authPage(["admin"]),
+  updateEpisode
+);
+// @Router PATCH /api/admin/episodes/:episode/add-source
+// @desc Update episode
+// @access private
+route.patch(
+  "/episodes/:episode/add-source",
+  verifyAccessToken,
+  authPage(["admin"]),
+  addNewSource
+);
 
-/////////////////////////////////////////////////////////////////////////////////
-// Another routes
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SLIDES
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // @Router GET /api/admin/slides
 // @desc Get all slide
@@ -124,6 +187,10 @@ route.post(
   authPage(["admin"]),
   createNewSlide
 );
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ANOTHER
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // @Router POST /api/admin/genres/create
 // @desc Create genre
@@ -169,5 +236,15 @@ route.post(
 // @desc Get all  country
 // @access private
 route.get("/countries", verifyAccessToken, authPage(["admin"]), getAllCountry);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// COMMENT
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+route.delete(
+  "/comments/:comment",
+  verifyAccessToken,
+  authPage(["admin"]),
+  deleteComment
+);
 
 module.exports = route;

@@ -271,6 +271,44 @@ const patchAddNewView = async (req, res) => {
   }
 };
 
+const updateRating = async (req, res) => {
+  try {
+    const movieCurrent = await Movie.findById(req.params.movieID);
+    const { rate } = movieCurrent;
+    let newAmount = rate.amount + 1;
+    let newTotal = rate.total + req.body.value;
+    const newRate = {
+      amount: newAmount,
+      total: newTotal,
+    };
+    let movieUpdated = await Movie.findByIdAndUpdate(req.params.movieID, {
+      rate: newRate,
+    })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "username URL_avatar",
+        },
+      })
+      .populate({
+        path: "genres",
+        select: "name",
+      });
+    res.status(200).json({
+      success: true,
+      message: "Update rate success",
+      movieUpdated: movieUpdated,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   getMovieByID,
   getMovieByURL,
@@ -280,4 +318,5 @@ module.exports = {
   getALlSlide,
   getAllGenreTest,
   patchAddNewView,
+  updateRating,
 };

@@ -1,66 +1,50 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    lowercase: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-  },
-  gender: {
-    type: String,
-    default: "other",
-    enum: ["male", "female", "other"],
-  },
-  birhtday: Date,
-  phone: String,
-  email: {
-    type: String,
-    required: true,
-  },
-  URL_avatar: String,
-  like_movies: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "movies",
+const UserSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      lowercase: true,
+      unique: true,
     },
-  ],
-  follow_movies: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "movies",
+    password: {
+      type: String,
+      required: true,
     },
-  ],
-  viewed_movies: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "movies",
+    name: {
+      type: String,
     },
-  ],
-  role: {
-    type: String,
-    required: true,
-    default: "user",
-    enum: ["user", "admin"],
+    gender: {
+      type: String,
+      default: "other",
+      enum: ["male", "female", "other"],
+    },
+    birhtday: Date,
+    phone: String,
+    email: {
+      type: String,
+      required: true,
+    },
+    URL_avatar: String,
+    liked_movies: [String],
+    followed_movies: [String],
+    viewed_movies: [String],
+    role: {
+      type: String,
+      required: true,
+      default: "user",
+      enum: ["user", "admin"],
+    },
+
+    status: {
+      type: String,
+      enum: ["active", "locked", "removed"],
+      default: "active",
+    },
   },
-  create_at: {
-    type: Date,
-    require: true,
-    default: Date.now,
-  },
-  status: {
-    type: String,
-    enum: ["nomal", "locked", "removed"],
-    default: "nomal",
-  },
-});
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("users", UserSchema);

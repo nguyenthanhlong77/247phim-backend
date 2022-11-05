@@ -18,57 +18,17 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 1",
+    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 3",
     "other_name" : "Larva Pendant",
-    "name_URL": "au-trung-lava-mat-day-chuyen-1",
+    "name_URL": "au-trung-lava-mat-day-chuyen-3",
     "likes" : 0,
     "views" : 1,
+    "type_movie": "phimle",
     "year" : "2022",
     "duration" : 33,
     "description" : "Phần phim ngắn ngớ ngẩn tiếp theo của “Đảo ấu trùng” và “Bộ phim Đảo ấu trùng” xoay quanh những sự cố vụng về của đôi bạn hay xì hơi Đỏ và Vàng trong thành phố.",
-    "genres" : [
-        ],
-    "comments": [
-        ]
-    ,
     "language" : "Tiếng Việt",
-    "episodes" : [
-
-        {
-            "name": "Tập 1",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-        },
-        {
-            "name": "Tập 2",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
-        },
-        {
-            "name": "Tập 3",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
-        },
-        {
-            "name": "Tập 4",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
-        },
-        {
-            "name": "Tập 5",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
-        },
-        {
-            "name": "Tập 6",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
-        },
-        {
-            "name": "Tập 7",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
-        },
-        {
-            "name": "Tập 8",
-            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4"
-        }
-        
-    ], 
-    "URL_image": "https://static.247phim.com/165095/conversions/62948cc830b42_lava2022-435_627.jpg"
+    "URL_image": "https://biphim.cc/public/files/flim/120x160/1653569056.jpg"
 }
 ###
 #Create new movie
@@ -317,11 +277,11 @@ Content-Type: application/json
 
 
 ### GET 
-GET http://localhost:5000/api/movies/62a2aa766ad804a4a57dfee5
+GET http://localhost:5000/api/movies
 ###
 
 ### GET 
-GET http://localhost:5000/api/movies/url/tay-hanh-ky-phan-4
+GET http://localhost:5000/api/movies/url/au-trung-lava-mat-day-chuyen-1
 
 ###
 
@@ -474,3 +434,52 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEy
 }
 
 
+
+###
+POST http://localhost:5000/api/admin/episodes/create
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjYyNTM0NDF9.rQU_YS5MW08D0AhpUH-3L4ZMhh_3joxFaZ9kA0sJ0r4
+
+
+{
+    "name": "Tập 1",
+    "movie" : "6364149f4ab22eaafb3553cb",
+    "sources" : [{
+        "server": "local",
+        "src": "123"
+    }]
+}
+
+###
+GET http://localhost:5000/api/admin/episodes
+
+###
+PATCH http://localhost:5000/api/admin/episodes/636415cea7e395a7bb6f015a/add-source
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NzU1MTAzN30.tRJx45FD_Hip0vDJ2Um5a7G-BhzcNLai9uuTUP6nrps
+
+
+{
+    "server": "mega",
+    "src": "1231231231232"
+    
+}
+
+###
+GET http://localhost:5000/api/admin/movies
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2Njc1NTYwNjZ9.ecVvBGoK-bb9CTCcIL8-UTJcmP1V5bj3E3wO_LE3n0A
+
+
+###
+PATCH http://localhost:5000/api/movies/62b3b7e0f1e2b633d594db44/new-rate
+Content-Type: application/json
+
+{
+    "value": 5
+}
+
+###
+GET http://localhost:5000/api/movies/62b3b7e0f1e2b633d594db44
+
+###
+GET http://localhost:5000/api/movies/url/nguoi-doi-vach-tran-su-that

@@ -1,10 +1,10 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const { User, Movie, Comment } = require("../models/index");
-const { use } = require("../routes/Admin.route");
 
 const getProfile = async (req, res) => {
   const userID = req.payload.userID;
+
   try {
     const user = await User.findById(userID);
     if (user)

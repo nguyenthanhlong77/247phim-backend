@@ -1,4 +1,4 @@
-const User = require("./UserV2.model");
+const User = require("./User.model");
 const Movie = require("./MovieV2.model");
 const Slide = require("./Slide.model");
 const Genre = require("./Genre.model");

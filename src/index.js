@@ -20,10 +20,6 @@ const {
   publicRoute,
   userRoute,
 } = require("./routes/index");
-app.use("/api/", publicRoute);
-app.use("/api/admin", adminRoute);
-app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
 
 ///////////////////////////////////
 // api v2
@@ -34,9 +30,10 @@ app.use("/api/user", userRoute);
 //   publicRoute,
 //   userRoute,
 // } = require("./api/v2/routes/index");
-// app.use("/api/v2", publicRoute);
-// app.use("/api/v2/admin", adminRoute);
-// app.use("/api/v2/auth", authRoute);
-// app.use("/api/v2/user", userRoute);
+
+app.use("/api/", publicRoute);
+app.use("/api/admin", adminRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 app.listen(PORT, () => console.log(`App listen on port: ${PORT}`));
