@@ -27,7 +27,7 @@ const getAllMovies = async (req, res) => {
       Object.assign(query, { genres: req.query.genres });
     }
     if (req.query.year) {
-      Object.assign(query, { year: +req.query.year });
+      Object.assign(query, { year: req.query.year });
     }
     const total = await Movie.count(query);
     const movies = await Movie.find(query)
@@ -66,8 +66,10 @@ const getMovieByID = async (req, res) => {
         },
       })
       .populate({
+        path: "episodes",
+      })
+      .populate({
         path: "genres",
-        select: "name",
       });
 
     if (!movie)
@@ -102,9 +104,14 @@ const getMovieByURL = async (req, res) => {
         },
       })
       .populate({
+        path: "episodes",
+      })
+      .populate({
         path: "genres",
-        select: "name",
       });
+    // .populate({
+    //   path: "countries",
+    // });
 
     if (!movie)
       return res.status(200).json({
@@ -236,7 +243,7 @@ const patchAddNewView = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.movieID);
     if (!movie)
-      return res.status(200).json({
+      return res.status(404).json({
         success: false,
         message: "Movie not found!!!",
       });
@@ -245,7 +252,33 @@ const patchAddNewView = async (req, res) => {
     await Movie.findByIdAndUpdate(req.params.movieID, {
       views: newViews,
     });
-    const movieUpdated = await Movie.findById(req.params.movieID)
+
+    return res.status(200).json({
+      success: true,
+      messeage: "Add new views success!",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      messeage: "Internal server error!!!",
+    });
+  }
+};
+
+const updateRating = async (req, res) => {
+  try {
+    const movieCurrent = await Movie.findById(req.params.movieID);
+    const { rate } = movieCurrent;
+    let newAmount = rate.amount + 1;
+    let newTotal = rate.total + req.body.value;
+    const newRate = {
+      amount: newAmount,
+      total: newTotal,
+    };
+    let movieUpdated = await Movie.findByIdAndUpdate(req.params.movieID, {
+      rate: newRate,
+    })
       .populate({
         path: "comments",
         populate: {
@@ -257,16 +290,16 @@ const patchAddNewView = async (req, res) => {
         path: "genres",
         select: "name",
       });
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
-      messeage: "Add new views success!",
-      movieUpdated,
+      message: "Update rate success",
+      movieUpdated: movieUpdated,
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      messeage: "Internal server error!!!",
+      message: "Internal server error",
     });
   }
 };
@@ -280,4 +313,5 @@ module.exports = {
   getALlSlide,
   getAllGenreTest,
   patchAddNewView,
+  updateRating,
 };

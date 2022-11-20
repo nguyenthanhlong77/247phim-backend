@@ -31,7 +31,8 @@ const MovieSchema = new Schema(
       default: "Đang cập nhật",
     },
     country: {
-      type: String,
+      type: mongoose.Types.ObjectId,
+      ref: "countries",
     },
     type_movie: {
       type: String,
@@ -46,10 +47,25 @@ const MovieSchema = new Schema(
       type: String,
       default: "Đang cập nhật",
     },
-    genres: [String],
+    genres: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "genres",
+      },
+    ],
     language: String,
-    episodes: [String],
-    comments: [String],
+    episodes: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "episodes",
+      },
+    ],
+    comments: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "comments",
+      },
+    ],
     rate: {
       amount: {
         type: Number,

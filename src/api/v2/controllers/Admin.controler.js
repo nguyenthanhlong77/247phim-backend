@@ -1,13 +1,5 @@
 const mongoose = require("mongoose");
-const {
-  User,
-  Movie,
-  Slide,
-  Genre,
-  Country,
-  Episode,
-  Comment,
-} = require("../models/index");
+const { User, Movie, Slide, Episode, Comment } = require("../models/index");
 const { convertToUrl } = require("../utils/convertToUrl");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,15 +35,19 @@ const createEpisode = async (req, res) => {
       sources: sources,
     });
 
-    const newEpisodes = MovieSelected.episodes;
-    const id = newEpisode._id.toString();
-    newEpisodes.push(id);
-    await newEpisode.save();
-    await Movie.findByIdAndUpdate(movie, { episodes: newEpisodes });
+    const id = newEpisode._id;
+    const newEpisodes = [
+      ...MovieSelected.episodes,
+      mongoose.Types.ObjectId(id),
+    ];
 
+    await newEpisode.save();
+    await Movie.findByIdAndUpdate(movie, { episodes: [...newEpisodes] });
+    const updatedMovie = await Movie.findById(movie);
     res.status(200).json({
       success: true,
       message: "Episode created success",
+      movie: updatedMovie,
     });
   } catch (error) {
     console.log(error);
@@ -164,7 +160,6 @@ const createNewEpisode = async (req, res) => {
 const getAllMovies = async (req, res) => {
   try {
     const movies = await Movie.find().sort({ create_at: -1 });
-    console.log(movies);
     return res.status(200).json({
       success: true,
       movies,
@@ -192,13 +187,11 @@ const createNewMovie = async (req, res) => {
     casts,
     genres,
     language,
-    episodes,
     comments,
     rate,
     URL_image,
   } = req.body;
   let newNameUrl = name_URL.toLowerCase();
-  console.log(newNameUrl);
 
   const movie = await Movie.findOne({ name: name });
 
@@ -222,7 +215,7 @@ const createNewMovie = async (req, res) => {
       casts,
       genres,
       language,
-      episodes,
+
       comments,
       rate,
       URL_image,
@@ -458,101 +451,101 @@ const createNewSlide = async (req, res) => {
   }
 };
 
-const getAllCountry = async (req, res) => {
-  try {
-    const Countries = await Country.find();
-    return res.status(200).json({
-      success: true,
-      Countries,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
+// const getAllCountry = async (req, res) => {
+//   try {
+//     const Countries = await Country.find();
+//     return res.status(200).json({
+//       success: true,
+//       Countries,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//     });
+//   }
+// };
 
-const createNewCountry = async (req, res) => {
-  const { name, name_URL } = req.body;
-  if (!name) {
-    return res.status(401).json({
-      success: false,
-      message: "Mixing name",
-    });
-  }
-  if (!name_URL) {
-    return res.status(401).json({
-      success: false,
-      message: "Mixing name_URL",
-    });
-  }
+// const createNewCountry = async (req, res) => {
+//   const { name, name_URL } = req.body;
+//   if (!name) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Mixing name",
+//     });
+//   }
+//   if (!name_URL) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Mixing name_URL",
+//     });
+//   }
 
-  try {
-    const newCountry = new Country({ name, name_URL });
-    // add new slide
-    await newCountry.save();
-    return res.status(200).json({
-      success: true,
-      message: "New country created",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
+//   try {
+//     const newCountry = new Country({ name, name_URL });
+//     // add new slide
+//     await newCountry.save();
+//     return res.status(200).json({
+//       success: true,
+//       message: "New country created",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//     });
+//   }
+// };
 
-const createNewGenre = async (req, res) => {
-  const { name, name_URL } = req.body;
-  if (!name) {
-    return res.status(401).json({
-      success: false,
-      message: "Mixing name",
-    });
-  }
-  if (!name_URL) {
-    return res.status(401).json({
-      success: false,
-      message: "Mixing name_URL",
-    });
-  }
+// const createNewGenre = async (req, res) => {
+//   const { name, name_URL } = req.body;
+//   if (!name) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Mixing name",
+//     });
+//   }
+//   if (!name_URL) {
+//     return res.status(401).json({
+//       success: false,
+//       message: "Mixing name_URL",
+//     });
+//   }
 
-  try {
-    const newGenre = new Genre({ name, name_URL });
-    // add new slide
-    await newGenre.save();
-    return res.status(200).json({
-      success: true,
-      message: "New genre created",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
+//   try {
+//     const newGenre = new Genre({ name, name_URL });
+//     // add new slide
+//     await newGenre.save();
+//     return res.status(200).json({
+//       success: true,
+//       message: "New genre created",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//     });
+//   }
+// };
 
-const getAllGenre = async (req, res) => {
-  try {
-    const genres = await Genre.find();
-    return res.status(200).json({
-      success: true,
-      genres,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
+// const getAllGenre = async (req, res) => {
+//   try {
+//     const genres = await Genre.find();
+//     return res.status(200).json({
+//       success: true,
+//       genres,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//     });
+//   }
+// };
 
 const getALlSlides = async (req, res) => {
   try {
@@ -571,10 +564,10 @@ const getALlSlides = async (req, res) => {
 };
 
 module.exports = {
-  createNewGenre,
-  getAllGenre,
-  getAllCountry,
-  createNewCountry,
+  // createNewGenre,
+  // getAllGenre,
+  // getAllCountry,
+  // createNewCountry,
 
   // episode
   getAllEpisodes,

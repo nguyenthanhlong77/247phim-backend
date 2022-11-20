@@ -69,12 +69,54 @@ const getListLikeMovies = async (req, res) => {
   }
 };
 
+const updateLikedMovies = async (req, res) => {
+  try {
+    const userCurrent = await User.findById(req.payload.userID);
+    const movieCurrent = await Movie.findById(req.body.movieID);
+    if (req.body.isLike) {
+      let likesMovieCurrent = movieCurrent.likes;
+      let likedMovies = [
+        ...userCurrent.liked_movies,
+        mongoose.Types.ObjectId(req.body.movieID),
+      ];
+
+      await Movie.findByIdAndUpdate(req.body.movieID, {
+        likes: likesMovieCurrent + 1,
+      });
+      await User.findByIdAndUpdate(req.payload.userID, {
+        liked_movies: likedMovies,
+      });
+    } else {
+      let likesMovieCurrent = movieCurrent.likes;
+      let likedMovies = userCurrent.liked_movies.filter(
+        (item) => item.toString() !== req.body.movieID
+      );
+
+      await Movie.findByIdAndUpdate(req.body.movieID, {
+        likes: likesMovieCurrent - 1,
+      });
+      await User.findByIdAndUpdate(req.payload.userID, {
+        liked_movies: likedMovies,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Update success",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error!",
+    });
+  }
+};
+
 const addNewLikeMovie = async (req, res) => {
   try {
     const userID = req.payload.userID;
     const user = await User.findById(userID);
     const movie = await Movie.findById(req.body.movieID);
-    const listMovie = user.like_movies;
+    const listMovie = user.liked_movies;
     let newLike = 0;
     let newListMovie = [];
     if (req.body.type_like) {
@@ -207,7 +249,7 @@ const addNewViewedMovie = async (req, res) => {
 const addNewComment = async (req, res) => {
   const movie = await Movie.findById(req.params.movieID);
   if (!movie)
-    return res.status(200).json({
+    return res.status(404).json({
       success: false,
       message: "Movie not found!!",
     });
@@ -216,26 +258,18 @@ const addNewComment = async (req, res) => {
     const newComment = [
       {
         ...req.body,
-        _id: new mongoose.Types.ObjectId(),
         user: req.payload.userID,
       },
     ];
-    const newComments = [...comments, ...newComment];
+    const newComments = [...comments, newComment._id];
     await Movie.findByIdAndUpdate(req.params.movieID, {
       comments: newComments,
     });
-    const commentsUpdated = await Movie.findById(req.params.movieID).populate({
-      path: "comments",
-      populate: {
-        path: "user",
-        select: "username URL_avatar",
-      },
-    });
+    await newComment.save();
 
     return res.status(200).json({
       success: true,
       message: "Movie added new comment!!!",
-      commentsUpdated: commentsUpdated.comments,
     });
   } catch (error) {
     console.log(error);
@@ -278,4 +312,5 @@ module.exports = {
   addNewViewedMovie,
   updateProfile,
   createNewCommnet,
+  updateLikedMovies,
 };

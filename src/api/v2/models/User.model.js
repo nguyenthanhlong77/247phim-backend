@@ -28,9 +28,24 @@ const UserSchema = new Schema(
       required: true,
     },
     URL_avatar: String,
-    liked_movies: [String],
-    followed_movies: [String],
-    viewed_movies: [String],
+    liked_movies: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "movies",
+      },
+    ],
+    followed_movies: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "movies",
+      },
+    ],
+    viewed_movies: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "movies",
+      },
+    ],
     role: {
       type: String,
       required: true,

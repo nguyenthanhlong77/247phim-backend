@@ -8,6 +8,7 @@ const {
   addNewViewedMovie,
   updateProfile,
   addNewComment,
+  updateLikedMovies,
   // test
   createNewCommnet,
 } = require("../controllers/User.controller");
@@ -32,12 +33,12 @@ route.post("/profile/update", verifyAccessToken, updateProfile);
 // @Route GET /api/user/like-movies
 // @desc List movie user liked
 // @access private
-route.get("/like-movies", verifyAccessToken, getListLikeMovies);
+route.get("/liked-movies", verifyAccessToken, getListLikeMovies);
 
 // @Route POST /api/user/like-movies
 // @desc add a movie in list like-movies
 // @access private
-route.patch("/like-movies/new", verifyAccessToken, addNewLikeMovie);
+route.patch("/liked-movies/update", verifyAccessToken, updateLikedMovies);
 
 // @Route GET /api/user/follow-movies
 // @desc List movie user followd

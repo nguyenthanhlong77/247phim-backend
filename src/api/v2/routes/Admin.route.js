@@ -28,10 +28,10 @@ const {
   getALlSlides,
   createNewSlide,
 
-  getAllCountry,
-  getAllGenre,
-  createNewGenre,
-  createNewCountry,
+  // getAllCountry,
+  // getAllGenre,
+  // createNewGenre,
+  // createNewCountry,
   deleteComment,
 } = require("../controllers/Admin.controler");
 
@@ -195,17 +195,17 @@ route.post(
 // @Router POST /api/admin/genres/create
 // @desc Create genre
 // @access private
-route.post(
-  "/genres/create",
-  verifyAccessToken,
-  authPage(["admin"]),
-  createNewGenre
-);
+// route.post(
+//   "/genres/create",
+//   verifyAccessToken,
+//   authPage(["admin"]),
+//   createNewGenre
+// );
 
 // @Router Get /api/admin/genres
 // @desc Get all  genre
 // @access private
-route.get("/genres", verifyAccessToken, authPage(["admin"]), getAllGenre);
+// route.get("/genres", verifyAccessToken, authPage(["admin"]), getAllGenre);
 
 // // @Router POST /api/admin/years/create
 // // @desc Create years
@@ -225,17 +225,17 @@ route.get("/genres", verifyAccessToken, authPage(["admin"]), getAllGenre);
 // @Router POST /api/admin/countries/create
 // @desc Create countries
 // @access private
-route.post(
-  "/countries/create",
-  verifyAccessToken,
-  authPage(["admin"]),
-  createNewCountry
-);
+// route.post(
+//   "/countries/create",
+//   verifyAccessToken,
+//   authPage(["admin"]),
+//   createNewCountry
+// );
 
 // @Router Get /api/admin/countries
 // @desc Get all  country
 // @access private
-route.get("/countries", verifyAccessToken, authPage(["admin"]), getAllCountry);
+// route.get("/countries", verifyAccessToken, authPage(["admin"]), getAllCountry);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // COMMENT

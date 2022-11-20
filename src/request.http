@@ -18,9 +18,9 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 3",
+    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 1",
     "other_name" : "Larva Pendant",
-    "name_URL": "au-trung-lava-mat-day-chuyen-3",
+    "name_URL": "au-trung-lava-mat-day-chuyen-1",
     "likes" : 0,
     "views" : 1,
     "type_movie": "phimle",
@@ -323,7 +323,7 @@ PATCH http://localhost:5000/api/movies/62a383294dfcbba16276f682/newView
 ### Get Pofile user
 GET http://localhost:5000/api/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ5NDU5NzN9.ATP7n6kJ4ZGunIvh42Iq_caV-s8iR9HbmXAw7GNz7X8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjgxODk1MTl9.iArc5MwdPvMGkNBDB5VCuCTVWFjtwJZJjCAZ61ApbuY
 ###
 
 ### update user's profile 
@@ -385,12 +385,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliY
 ###
 
 ### Update movie - add new comment
-PATCH http://localhost:5000/api/user/movies/62a3cccbed21c50eb3fda31d/comment/new
+PATCH http://localhost:5000/api/user/movies/6364ce519f76c31ab40e0d92/comment/new
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ5NDU5NzN9.ATP7n6kJ4ZGunIvh42Iq_caV-s8iR9HbmXAw7GNz7X8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjgxODk1MTl9.iArc5MwdPvMGkNBDB5VCuCTVWFjtwJZJjCAZ61ApbuY
 
 {
-    "body" : "comment 6"
+    "body" : "comment 6",
+    "movie" : "636f2352293c967a4ad052d4",
 }
 ###
 
@@ -425,7 +426,7 @@ GET http://localhost:5000/api/categories
 //TEST
 POST http://localhost:5000/api/user/comments/create
 Content-Type: application/json
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjYyNTM0NDF9.rQU_YS5MW08D0AhpUH-3L4ZMhh_3joxFaZ9kA0sJ0r4
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NjgxODk1MTl9.iArc5MwdPvMGkNBDB5VCuCTVWFjtwJZJjCAZ61ApbuY
 
 
 {
@@ -442,25 +443,40 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEy
 
 
 {
-    "name": "Tập 1",
-    "movie" : "6364149f4ab22eaafb3553cb",
+    "name": "Tập full",
+    "movie" : "63794a6ae3aa35f32c0ab6bb",
     "sources" : [{
         "server": "local",
-        "src": "123"
-    }]
+        "src": "http://localhost:4000/videos/video_undefined_1668897179731.mp4"
+    },
+    {
+        "server": "abyss",
+        "src" : "https://short.ink/cEYahQly0"
+    }
+,
+    {
+        "server": "ok",
+        "src" : "//ok.ru/videoembed/5065806514897"
+    }
+,
+    {
+        "server": "mega",
+        "src" : "https://mega.nz/embed/rB0yTZwQ#bCv9-jG9fyQclr0dB38eA0bs5W6iWpzxcBLDAtn2lgQ"
+    }
+    ]
 }
 
 ###
 GET http://localhost:5000/api/admin/episodes
 
 ###
-PATCH http://localhost:5000/api/admin/episodes/636415cea7e395a7bb6f015a/add-source
+PATCH http://localhost:5000/api/admin/episodes/6378c3db31f8d754aa4a4eb1/add-source
 Content-Type: application/json
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NzU1MTAzN30.tRJx45FD_Hip0vDJ2Um5a7G-BhzcNLai9uuTUP6nrps
 
 
 {
-    "server": "mega",
+    "server": "abyss",
     "src": "1231231231232"
     
 }
@@ -471,7 +487,7 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0
 
 
 ###
-PATCH http://localhost:5000/api/movies/62b3b7e0f1e2b633d594db44/new-rate
+PATCH http://localhost:5000/api/movies/6365a010c83ebd902252ff04/new-rate
 Content-Type: application/json
 
 {
@@ -479,7 +495,28 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/movies/62b3b7e0f1e2b633d594db44
+GET http://localhost:5000/api/movies/636f2352293c967a4ad052d4
 
 ###
-GET http://localhost:5000/api/movies/url/nguoi-doi-vach-tran-su-that
+patch http://localhost:5000/api/movies/6365a010c83ebd902252ff04/new-view
+
+###
+POST http://localhost:5000/api/comments/create
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NzU1MTAzN30.tRJx45FD_Hip0vDJ2Um5a7G-BhzcNLai9uuTUP6nrps
+
+{
+    "content" : "comment 1",
+    "movie" : "636f2352293c967a4ad052d4"
+}
+
+###
+DELETE  http://localhost:5000/api/comments/637844424bccb3375c644a99/remove
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NzU1MTAzN30.tRJx45FD_Hip0vDJ2Um5a7G-BhzcNLai9uuTUP6nrps
+
+###
+Get http://localhost:5000/api/comments/636f2352293c967a4ad052d4
+Content-Type: application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MzY0Y2U1MTlmNzZjMzFhYjQwZTBkOTIiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2NzU1MTAzN30.tRJx45FD_Hip0vDJ2Um5a7G-BhzcNLai9uuTUP6nrps
+
