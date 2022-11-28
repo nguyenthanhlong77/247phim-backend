@@ -4,36 +4,36 @@ const Schema = mongoose.Schema;
 const NewsSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    require: true,
   },
   slug: {
     type: String,
-    required: true,
-  },
-  count: {
-    type: Number,
-    default: 0,
+    require: true,
   },
   thumb: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  content: {
     type: String,
   },
   category: {
     type: String,
     require: true,
+    enum: ["review", "cinema", "blogMovie", "blogStar"],
+    default: "review",
   },
+  description: {
+    type: String,
+  },
+  status: {
+    type: Number,
+    default: 1,
+    enum: [-1, 0, 1],
+  },
+  content: {
+    type: String,
+  },
+  count: { type: Number, default: 0 },
   createdAt: {
     type: Date,
     default: Date.now(),
-  },
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: "UserV2.model",
   },
 });
 

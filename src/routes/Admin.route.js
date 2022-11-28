@@ -17,6 +17,8 @@ const {
   updateMovie,
   patchLockedUser,
   patchRemovedUser,
+  insertNews,
+  getPagingNews,
 } = require("../controllers/Admin.controler");
 
 const { authPage, verifyAccessToken } = require("../middlewares/auth");
@@ -169,5 +171,6 @@ route.post(
 // @desc Get all  country
 // @access private
 route.get("/countries", verifyAccessToken, authPage(["admin"]), getAllCountry);
-
+route.post("/news/insert", verifyAccessToken, authPage(["admin"]), insertNews);
+route.get("/news", getPagingNews);
 module.exports = route;

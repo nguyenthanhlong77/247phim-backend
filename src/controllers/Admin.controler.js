@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { User, Movie, Slide, Genre, Country } = require("../models/index");
+const { User, Movie, Slide, Genre, Country, News } = require("../models/index");
 const { convertToUrl } = require("../utils/convertToUrl");
 
 const createNewCountry = async (req, res) => {
@@ -393,6 +393,66 @@ const updateMovie = async (req, res) => {
   }
 };
 
+const getPagingNews = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const insertNews = async (req, res) => {
+  try {
+    let news = new News(req.body);
+    news
+      .save()
+      .then((result) => {
+        res
+          .status(201)
+          .json({ success: true, message: "Create News Successfully", result });
+      })
+      .catch((error) => {
+        res.status(401).json({ success: false, message: error.message });
+      });
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const updateNews = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const deleteNews = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const getNewsByCategory = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const getNewBySlug = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+const getNewById = async (req, res) => {
+  try {
+  } catch {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 module.exports = {
   getAllMovies,
   getAllUsers,
@@ -409,4 +469,6 @@ module.exports = {
   getAllGenre,
   getAllCountry,
   createNewCountry,
+  insertNews,
+  getPagingNews,
 };

@@ -4,4 +4,6 @@ const Slide = require("./Slide.model");
 const Genre = require("./Genre.model");
 const Country = require("./Country.model");
 const Comment = require("./Comment.model");
-module.exports = { User, Movie, Slide, Genre, Country, Comment };
+const News = require("./News.model");
+
+module.exports = { User, Movie, Slide, Genre, Country, Comment, News };
