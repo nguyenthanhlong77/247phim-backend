@@ -80,7 +80,7 @@ const getPagingNews = async (req, res) => {
   let pageIndex = req.query.pageIndex || 1;
   let searchObj = {};
   if (req.query.search) {
-    searchObj = { title: { $regex: ".*" + req.query.search + ".*" } };
+    searchObj = { title: { $regex: req.query.search } };
   }
   try {
     let news = await News.find(searchObj)
